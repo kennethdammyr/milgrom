@@ -1,3 +1,5 @@
+#Project Milgrom
+
 This project is intented to process professional video uploaded to an Azure Blob Storage.
 
 Initially we will:
@@ -9,3 +11,6 @@ Further, we will present the database in a user friendly interface where the use
 - Preview media
 - Perform cognitive services on the media
 - Prepare for video editing
+
+#List of best practice for handling Blob Storage events:
+https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-event-overview
