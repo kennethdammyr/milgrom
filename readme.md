@@ -14,3 +14,17 @@ Further, we will present the database in a user friendly interface where the use
 
 #List of best practice for handling Blob Storage events:
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-event-overview
+
+MILGROM-COSMOS
+- MediaIndex
+-- Files
+-- Cards
+
+- ProjectIndex
+-- Projects
+-- Episodes
+
+- MetaData
+-- General
+-- Transcript
+-- 

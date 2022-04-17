@@ -4,7 +4,7 @@
       "name": "myBlob",
       "type": "blobTrigger",
       "direction": "in",
-      "path": "inbox/{name}",
+      "path": "inbox/{filename}.{ext}",
       "connection": "AzureWebJobsStorage"
     }
   ]
