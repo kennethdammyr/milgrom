@@ -5,7 +5,7 @@
       "type": "blobTrigger",
       "direction": "in",
       "path": "inbox/{name}",
-      "connection": "frysjadevstore2_STORAGE"
+      "connection": "AzureWebJobsStorage"
     }
   ]
 }
