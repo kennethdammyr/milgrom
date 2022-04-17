@@ -22,14 +22,16 @@ module.exports = async function (context, myBlob) {
     const file = {
         "filename": context.bindingData.filename,
         "ext":      context.bindingData.ext,
-        "path":     context.bindingData.blobTrigger  
+        "path":     context.bindingData.blobTrigger,
+        "uri":      context.bindingData.uri
     };
 
     // List metadata about the file
     context.log("Filename:", file.filename);
     context.log("Extension:", file.ext);
     context.log("blobTrigger:", file.path);
-    context.log("URI:", context.bindingData.uri);
+    context.log("Content Type:", context.bindingData.contentType);
+    context.log("URI:", file.uri);
     context.log("Metadata:", context.bindingData.metadata);
 
     // Add metadata to Cosmos DB if the file is mxf-file

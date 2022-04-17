@@ -1,10 +1,15 @@
 {
   "bindings": [
     {
+      "type": "eventGridTrigger",
+      "name": "blobDeleted",
+      "direction": "in"
+    },
+    {
       "name": "myBlob",
-      "type": "blobTrigger",
+      "type": "blob",
       "direction": "in",
-      "path": "inbox/{filename}.{ext}",
+      "path": "{data.url}",
       "connection": "AzureWebJobsStorage"
     }
   ]

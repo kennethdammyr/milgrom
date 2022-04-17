@@ -1,6 +1,5 @@
-module.exports = async function (context, myBlob) {
+module.exports = async function (context, blobDeleted) {
     context.log("************ BLOB DELETED ************");
-
     
     // Require libraries
     const { CosmosClient } = require("@azure/cosmos");
@@ -30,22 +29,24 @@ module.exports = async function (context, myBlob) {
     }
     
     // Prepare file-object
+    
     const file = {
-        "filename": context.bindingData.filename,
-        "ext":      context.bindingData.ext,
-        "path":     context.bindingData.blobTrigger  
+        "filename": blobDeleted.subject,
+        "path":     blobDeleted.data.url  
     };
 
     // List metadata about the file
-    context.log("Filename:", file.filename);
-    context.log("Extension:", file.ext);
-    context.log("blobTrigger:", file.path);
-    context.log("URI:", context.bindingData.uri);
-    context.log("Metadata:", context.bindingData.metadata);
+    context.log("Subject:", file.filename);
+    context.log("URL:", file.path);
+    //context.log("URI:", context.bindingData.uri);
+    //context.log("Metadata:", context.bindingData.metadata);
+    context.log("Binding Data:", context.bindingData);
+    context.log("blobDeleted:", blobDeleted);
 
     // Remove file from database
+    /*
     removeFile(file).catch((error) => {
         context.error(error);
     });
-
+    */
 };
