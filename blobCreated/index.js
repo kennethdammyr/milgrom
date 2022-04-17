@@ -18,25 +18,19 @@ module.exports = async function (context, myBlob) {
         container.items.create(file);
     }
     
-    // Prepare file-object
+    // Prepare file-object    
     const file = {
-        "filename": context.bindingData.filename,
-        "ext":      context.bindingData.ext,
-        "path":     context.bindingData.blobTrigger,
-        "uri":      context.bindingData.uri
+        "contentType"   : myBlob.data.contentType,
+        "uri"           : myBlob.data.url
     };
 
     // List metadata about the file
-    context.log("Filename:", file.filename);
-    context.log("Extension:", file.ext);
-    context.log("blobTrigger:", file.path);
-    context.log("Content Type:", context.bindingData.contentType);
+    context.log("Content Type:", file.contentType);
     context.log("URI:", file.uri);
-    context.log("Metadata:", context.bindingData.metadata);
 
     // Add metadata to Cosmos DB if the file is mxf-file
-    if (file.ext == "pdf") {
-        context.log("This file is mxf, we will add to CosmosDB");
+    if (file.contentType == "image/png") {
+        context.log("This file is png, we will add to CosmosDB");
 
         addFile(file).catch((error) => {
             context.error(error);

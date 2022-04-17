@@ -1,4 +1,4 @@
-module.exports = async function (context, blobDeleted) {
+module.exports = async function (context, blobDeleted, myBlob) {
     context.log("************ BLOB DELETED ************");
     
     // Require libraries
@@ -15,38 +15,30 @@ module.exports = async function (context, blobDeleted) {
 
     // Function to REMOVE file from database
     async function removeFile(file) {
-        /* Query the database for all references of the file
-        const { dbfiles } = await container.items
-        .query("SELECT * from c WHERE c.path = ".file.path)
-        .fetchAll();
-
-    // Walk through and delete them all
-      for (var file of dbfiles) {
-        context.log("Found file:", file.filename);
-        file.delete();
-      }
-      */
+        // Query the database for all references of the file
+        context.log("Trying to delete" + file.uri);
+        let query = "SELECT * from c WHERE c.uri = '" + file.uri + "'";
+        const { dbfiles } = await container.items.query(query).fetchAll(); // Virker dette? Jeg tror spørringen er riktig...
+    
+        // Walk through and delete them all
+        for (var dbfile of dbfiles) {
+            context.log("Found file:", dbfile.uri);
+            dbfile.delete();
+        }
     }
     
-    // Prepare file-object
-    
+    // Prepare file-object  
     const file = {
-        "filename": blobDeleted.subject,
-        "path":     blobDeleted.data.url  
+        "contentType"   : blobDeleted.data.contentType,
+        "uri"           : blobDeleted.data.blobUrl
     };
 
     // List metadata about the file
-    context.log("Subject:", file.filename);
-    context.log("URL:", file.path);
-    //context.log("URI:", context.bindingData.uri);
-    //context.log("Metadata:", context.bindingData.metadata);
-    context.log("Binding Data:", context.bindingData);
-    context.log("blobDeleted:", blobDeleted);
+    context.log("URI:", file.uri);
+    context.log("Content Type:", file.contentType);
 
     // Remove file from database
-    /*
     removeFile(file).catch((error) => {
-        context.error(error);
+        context.log(error);
     });
-    */
 };
